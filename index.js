@@ -2,10 +2,10 @@
 const db = firebase.firestore();
 const taskForm = document.getElementById('task-form');
 const taskContainer = document.getElementById('tasks-container');
-const dark_url = "https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css";
-const light_url = "https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/minty/bootstrap.min.css";
-const btnTheme = document.getElementById('btn-theme');
-const changeTheme = document.getElementById('main-theme');
+const btnTheme = document.querySelector('#btn-theme');
+const navTheme = document.querySelector('#nav-theme');
+const myCard = document.querySelector('#myCard');
+const taskCard = document.getElementById('taskCard');
 
 const saveTask = (title, description) => db.collection('tasks').doc().set({
 		title,
@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 		task.id = doc.id;
 
 			taskContainer.innerHTML += 
-			`<div class="card card-body mt-2 border-primary animate__animated animate__fadeInDown">
+			`<div id="taskCard" class="card card-body mt-2 border-primary animate__animated animate__fadeInDown">
 				
 				<h3 class="h5">${task.title}</h3>
 				<p>${task.description}</p>
@@ -71,11 +71,10 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 
 
 	btnTheme.addEventListener('click', () => {
-	changeTheme.href = dark_url;
-	changeTheme.id = 'secondary_theme';
-	btnTheme.innerHTML = '<i class="bi-sun-fill"></i> Light Theme'
-	themeIsDark = true;
-
+		document.body.classList.toggle('dark');
+		navTheme.classList.toggle('bg-dark');
+		myCard.classList.toggle('bg-dark');
+		btnTheme.innerHTML = '<i class="bi-sun-fill"></i> Light Theme';
 	});
 
 taskForm = addEventListener('submit', async (e) => {
